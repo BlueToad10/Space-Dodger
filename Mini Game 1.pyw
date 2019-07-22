@@ -6,6 +6,8 @@ from waitForPlayerToPressKey import *
 
 pygame.init()
 pygame.mixer.init()
+pygame.display.set_caption("Tiptron's Space Dodger")
+
 WINDOWSIZE = (720, 480)
 FPS = 60
 BADDIEMINSPEED = 1
