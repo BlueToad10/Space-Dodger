@@ -6,12 +6,15 @@ from waitForPlayerToPressKey import *
 
 pygame.init()
 pygame.mixer.init()
-pygame.display.set_caption("Tiptron's Space Dodger - Normal Mode")
+pygame.display.set_caption("Tiptron's Space Dodger - Hard Mode")
 WINDOWSIZE = (720, 480)
+FPS = 60
+BADDIEMINSPEED = 1
+BADDIEMAXSPEED = 8
+ADDNEWBADDIERATE = 6
 BACKGROUNDCOLOUR = (0, 0, 0)
-FPS=60
 moveLeft=moveRight=False
-playerHealth = 100
+playerHealth = 30
 cooldown=120
 playerPosX=points=spawnCounter=pointCounter=countUpPoints = 0
 playerImage = pygame.transform.scale(pygame.image.load('player.png'), (64, 64))
@@ -75,7 +78,7 @@ class objects(pygame.sprite.Sprite):
             spawnrate = random.randint(6,48)
             sound2.play()
             if pointCounter == 9000:
-                playerHealth += 50
+                playerHealth += 10
                 pointCounter = 0
                 sound3.play()
         if self.rect.y > 480:
@@ -162,7 +165,7 @@ while True:
     DrawText("Game Over", "Pixel Emulator.otf", 32, (255, 255, 255), windowSurface, 300, 100, 400, 100)
     pygame.display.update()
     waitForPlayerToPressKey()
-    playerHealth=100
+    playerHealth=30
     points=countUpPoints=0
     objects_list.empty()
     player_list.empty()
