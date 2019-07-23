@@ -8,6 +8,8 @@ pygame.init()
 pygame.mixer.init()
 pygame.display.set_caption("Tiptron's Space Dodger - Start Up")
 WINDOWSIZE = (720, 480)
+icon = pygame.transform.scale(pygame.image.load('player.png'), (32, 32))
+pygame.display.set_icon(icon)
 song3 = "Super Paper Mario OST - Tokens, Please.mp3"
 logo = pygame.transform.scale(pygame.image.load('tiptron space dodger.png'), WINDOWSIZE)
 logoR = logo.get_rect()

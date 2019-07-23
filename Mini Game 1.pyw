@@ -14,6 +14,8 @@ moveLeft=moveRight=False
 playerHealth = 100
 cooldown=120
 playerPosX=points=spawnCounter=pointCounter=countUpPoints = 0
+icon = pygame.transform.scale(pygame.image.load('player.png'), (32, 32))
+pygame.display.set_icon(icon)
 playerImage = pygame.transform.scale(pygame.image.load('player.png'), (64, 64))
 backgroundImage = pygame.transform.scale(pygame.image.load('background.png'), WINDOWSIZE)
 logo = pygame.transform.scale(pygame.image.load('tiptron space dodger.png'), WINDOWSIZE)
