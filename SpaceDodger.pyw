@@ -9,10 +9,10 @@ pygame.init()
 pygame.mixer.init()
 pygame.display.set_caption("Space Dodger - Start Up")
 WINDOWSIZE = (720, 480)
-icon = pygame.transform.scale(pygame.image.load('assets//images//player.png'), (32, 32))
+icon = pygame.transform.scale(pygame.image.load('assets//images//player.png'), (32, 32)).convert_alpha()
 pygame.display.set_icon(icon)
 song3 = "assets//music//space dodger title.mp3"
-logo = pygame.transform.scale(pygame.image.load('assets//images//logo.png'), WINDOWSIZE)
+logo = pygame.transform.scale(pygame.image.load('assets//images//logo.png'), WINDOWSIZE).convert_alpha()
 logoR = logo.get_rect()
 font = "assets//Pixel Emulator.otf"
 
@@ -23,8 +23,8 @@ moveLeft=moveRight=False
 playerHealth = 100
 cooldown=120
 playerPosX=points=spawnCounter=pointCounter=countUpPoints = 0
-playerImage = pygame.transform.scale(pygame.image.load('assets//images//player.png'), (64, 64))
-backgroundImage = pygame.transform.scale(pygame.image.load('assets//images//background.png'), WINDOWSIZE)
+playerImage = pygame.transform.scale(pygame.image.load('assets//images//player.png'), (64, 64)).convert_alpha()
+backgroundImage = pygame.transform.scale(pygame.image.load('assets//images//background.png'), WINDOWSIZE).convert_alpha()
 songlist = []
 song1 = "assets//music//space dodger 1.mp3"
 song2 = "assets//music//space dodger 2.mp3"
@@ -38,10 +38,10 @@ enemyImages=[]
 itemImages=[]
 enemiesNum=itemsNum=-1
 for object in os.listdir("assets//images//enemies"):
-    enemyImages.append(pygame.transform.scale(pygame.image.load("assets//images//enemies//" + object), (64, 64)))
+    enemyImages.append(pygame.transform.scale(pygame.image.load("assets//images//enemies//" + object), (64, 64)).convert_alpha())
     enemiesNum+=1
 for object in os.listdir("assets//images//items"):
-    itemImages.append(pygame.transform.scale(pygame.image.load("assets//images//items//" + object), (64, 64)))
+    itemImages.append(pygame.transform.scale(pygame.image.load("assets//images//items//" + object), (64, 64)).convert_alpha())
     itemsNum+=1
 spawnrate = random.randint(6,48)
 
@@ -136,7 +136,7 @@ windowSurface = pygame.display.set_mode(WINDOWSIZE)
 pygame.mouse.set_visible(False)
 mainClock = pygame.time.Clock()
 
-def MiniGame(Health, luheart):
+def MiniGame(Health, luheart, mode):
     global playerPosX, cooldown, playerHealth, Uphealth, moveLeft, moveRight, countUpPoints, points, spawnCounter, spawnrate
     player_list.add(player(320, 400))
     flip = random.randint(0,10)
@@ -149,11 +149,13 @@ def MiniGame(Health, luheart):
     pygame.mixer.music.play(1)
     playerHealth = Health
     Uphealth = luheart
-    pygame.display.set_caption("Space Dodger - Normal Mode")
     background_list.add(background(logo))
     background_list.draw(windowSurface)
     background_list.add(background(backgroundImage))
     while True:
+        mainClock.tick(60)
+        mainClock.get_fps()
+        pygame.display.set_caption("Space Dodger - " + mode + " Mode | FPS: " + str(int(mainClock.get_fps())))
         music()
         if moveLeft == True and moveRight == False and playerPosX > -320:
             playerPosX -= 8
@@ -210,6 +212,9 @@ def MiniGame(Health, luheart):
     
 while True:
     windowSurface.blit(logo, logoR)
+    mainClock.tick(60)
+    mainClock.get_fps()
+    pygame.display.set_caption("Space Dodger - Start Up | FPS: " + str(int(mainClock.get_fps())))
     DrawText("Normal Mode Press 1", font, 32, (255, 255, 255), windowSurface, 50, 100, 350, 400)
     DrawText("Hard Mode Press 2", font, 32, (255, 255, 255), windowSurface, 400, 100, 700, 400)
     pygame.display.update()
@@ -219,6 +224,6 @@ while True:
                 pygame.quit()
                 sys.exit()
             elif event.key == ord("1"):
-                MiniGame(100, 50)
+                MiniGame(100, 50, "Normal")
             elif event.key == ord("2"):
-                MiniGame(30, 10)
+                MiniGame(30, 10, "Hard")
